@@ -81,11 +81,13 @@ function init() {
             $("#openclose").html("The Market is <b>CLOSED</b> right now!");
         }
         for(const [user,row] of Object.entries(res["holdings"])) {
+            if(row["qty"] == 0) continue;
             $("#holdings").append("<tr><td>" + nameToCode(user,row["rating"]) + "</td><td>$" + reformNum(row["currentPrice"]) + "</td><td>$" + reformNum(row["purchasePrice"]) + "</td><td>" + Math.abs(row["qty"]) + "</td></tr>");
         }
         var totalLeft = 1000;
         for(const [user,row] of Object.entries(res["owners"])) {
             totalLeft -= row["qty"];
+            if(row["qty"] == 0) continue;
             $("#owners").append("<tr><td>" + nameToCode(user,row["rating"]) + "</td><td>" + row["qty"] + "</td><td>$" + reformNum(row["qty"] * res["price"]) + "</td><td>" + reformNum(100 * row["qty"] / 1000) + "%</td></tr>");
         }
 
