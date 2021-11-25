@@ -38,12 +38,12 @@ function init() {
 		$("#networth").text("$" + reformNum(res["networth"]));
 		var change = 0;
 		if(res["changes"].length > 1) {
-			change = (res["changes"][res["changes"].length - 1].value - res["changes"][res["changes"].length - 2].value) / res["changes"][res["changes"].length - 2].value;
+			change = (res["changes"][res["changes"].length - 1].value - res["changes"][res["changes"].length - 2].value) / res["changes"][res["changes"].length - 2].value * 100;
 		}
 		if(change >= 0) {
-			$("#growth").text("+" + change + "%");
+			$("#growth").text("+" + reformNum(change) + "%");
 		}else{
-			$("#growth").text(change + "%");
+			$("#growth").text(reformNum(change) + "%");
 		}
 		$("#cash").text("$" + reformNum(res["cash"]));
 		$("#cfvalue").text("$" + reformNum(res["price"]));

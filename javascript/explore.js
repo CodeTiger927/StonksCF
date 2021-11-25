@@ -60,12 +60,12 @@ function init() {
         $("#networth").text("$" + reformNum(res["networth"]));
         var change = 0;
         if(res["changes"].length > 1) {
-            change = (res["changes"][res["changes"].length - 1] - res["changes"][res["changes"].length - 2]) / res["changes"][res["changes"].length - 2];
+            change = (res["changes"][res["changes"].length - 1] - res["changes"][res["changes"].length - 2]) / res["changes"][res["changes"].length - 2] * 100;
         }
         if(change >= 0) {
-            $("#growth").text("+" + change + "%");
+            $("#growth").text("+" + reformNum(change) + "%");
         }else{
-            $("#growth").text(change + "%");
+            $("#growth").text(reformNum(change) + "%");
         }
         $("#cash").text("$" + reformNum(res["cash"]));
         $("#cfvalue").text("$" + reformNum(res["price"]));
@@ -97,8 +97,16 @@ function init() {
     });
 
     $.post("https://codeforces.com/api/user.rating?handle=" + username,function(res) {
+        var minimumRating = 4000;
+        var maximumRating = 0;
         for(var i = 0;i < res["result"].length;++i) {
             data.push([res["result"][i]["ratingUpdateTimeSeconds"] * 1000,res["result"][i]["newRating"],res["result"][i]["newRating"] - res["result"][i]["oldRating"],res["result"][i]["contestName"],res["result"][i]["contestId"],res["result"][i]["rank"]]);
+            minimumRating = Math.min(minimumRating,res["result"][i]["newRating"]);
+            maximumRating = Math.max(maximumRating,res["result"][i]["newRating"]);
+        }
+        if(res["result"].length == 0) {
+            minimumRating = 1200;
+            maximumRating = 2800;
         }
 
         var options = {
@@ -134,8 +142,8 @@ function init() {
                 }()
             },
             yaxis: {
-                min: 1000,
-                max: 2800,
+                min: Math.max(0,minimumRating - 100),
+                max: maximumRating + 250,
                 ticks: [1200, 1400, 1600, 1900, 2100, 2300, 2400, 2600, 3000],
                 zoomRange: [500, null],
                 panRange: [1000, 2516]

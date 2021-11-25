@@ -326,7 +326,7 @@
 		$handles = Array();
 		while($row = $res -> fetch_assoc()) {
 			$obj[$row["name"]]["hotness"] = floor($row["hotness"] / 2);
-			$obj[$row["name"]]["networth"] = $row["cash"];
+			$obj[$row["name"]]["networth"] = 0;
 			array_push($handles,$row["name"]);
 		}
 
@@ -337,12 +337,19 @@
 
 		$res = $conn -> query("SELECT * FROM trades");
 
+
 		while($row = $res -> fetch_assoc()) {
 			$obj[$row["buyer"]]["networth"] += ratingToPrice($obj[$row["stock"]]["rating"]) * $row["qty"];
+			if(!isset($obj[$row["buyer"]]["cash"])) {
+				$obj[$row["buyer"]]["cash"] = 10000;
+			}else{
+				$obj[$row["buyer"]]["cash"] -= $row["qty"] * $row["price"];
+			}
 		}
 
 		foreach($obj as $user => $pro) {
-			$conn -> query("UPDATE users SET rating=" . $pro["rating"] . ", networth=" . $pro["networth"] . ", hotness=" . $pro["hotness"] . " WHERE name='" . $user . "'");
+			$pro["networth"] += $pro["cash"];
+			$conn -> query("UPDATE users SET rating=" . $pro["rating"] . ", networth=" . $pro["networth"] . ", hotness=" . $pro["hotness"] . ", cash=" . $pro["cash"] . " WHERE name='" . $user . "'");
 
 			$conn -> query("INSERT INTO changes (name,value) VALUES ('" . $user . "'," . $pro["networth"] . ");");
 		}

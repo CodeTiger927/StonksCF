@@ -19,7 +19,11 @@ function ratingToColor(rating) {
 }
 
 function nameToCode(name,rating) {
-	return "<a style='text-decoration: none;font-weight: 550;color: " + ratingToColor(rating) + "' href='explore.html?username=" + name + "'>" + name + "</a>";
+	var newName = name;
+	if(rating >= 2600) {
+		newName = "<span style='color:" + (rating >= 3000 ? "black" : "rgb(255,0,127)")+ "'>" + name.charAt(0) + "</span>" + name.substr(1);
+	}
+	return "<a style='text-decoration: none;font-weight: 550;color: " + ratingToColor(rating) + "' class='rankIGM' href='explore.html?username=" + name + "'>" + newName + "</a>";
 }
 
 function numberWithCommas(x) {
