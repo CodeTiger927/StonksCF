@@ -193,7 +193,10 @@
 
 		if(!checkUserExists($conn,$stock) || !checkUserCredentials($conn,$username,$password)) die("");
 
-		$price = ratingToPrice($conn -> query("SELECT rating FROM users WHERE name='" . $stock . "'") -> fetch_assoc()["rating"]);
+		$stockUser = $conn -> query("SELECT rating,available FROM users WHERE name='" . $stock . "'") -> fetch_assoc();
+
+		$price = ratingToPrice($stockUser["rating"]);
+		$available = $stockUser["available"];
 
 		if($qty < 0) {
 			// Selling stocks
@@ -218,16 +221,19 @@
 			if($numOfContests < 6 && $stock != $username) {
 				$data["success"] = -6;
 				$data["message"] = "You cannot buy a stock whose user has taken less than 6 contests!";
+			}else if($qty > $available) {
+				$data["success"] = -11;
+				$data["message"] = "You are buying more stocks than there is available!";
 			}else{
-				$cash = $conn -> query("SELECT cash FROM users WHERE name='" . $stock . "'") -> fetch_assoc()["cash"];
+				$cash = $conn -> query("SELECT cash FROM users WHERE name='" . $username . "'") -> fetch_assoc()["cash"];
 				$total = $price * $qty;
 				if($total > $cash) {
 					$data["success"] = -2;
 					$data["message"] = "You do not have enough money!";
 				}else{
+					$conn -> query("INSERT INTO trades (buyer,stock,price,qty) VALUES ('" . $username . "','" . $stock . "'," . $price . "," . $qty . ")");
 					$conn -> query("UPDATE users SET cash=cash - " . $total . " WHERE name='" . $username . "'");
 					$conn -> query("UPDATE users SET hotness=hotness + " . $qty . ", available=available - " . $qty . " WHERE name='" . $stock . "'");
-					$conn -> query("INSERT INTO trades (buyer,stock,price,qty) VALUES ('" . $username . "','" . $stock . "'," . $price . "," . $qty . ")");
 					$data["success"] = 1;
 				}
 			}
