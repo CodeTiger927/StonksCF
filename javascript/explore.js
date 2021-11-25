@@ -60,7 +60,7 @@ function init() {
         $("#networth").text("$" + reformNum(res["networth"]));
         var change = 0;
         if(res["changes"].length > 1) {
-            change = (res["changes"][res["changes"].length - 1] - res["changes"][res["changes"].length - 2]) / res["changes"][res["changes"].length - 2] * 100;
+            change = (res["changes"][res["changes"].length - 1].value - res["changes"][res["changes"].length - 2].value) / res["changes"][res["changes"].length - 2].value * 100;
         }
         if(change >= 0) {
             $("#growth").text("+" + reformNum(change) + "%");
