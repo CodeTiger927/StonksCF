@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CF Stonks</title>
+
+	<meta charset="UTF-8">
+	<meta name="renderer" content="webkit">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link rel="icon" href="./favicon.png">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+	<meta name="keywords" content="codeforces,stock,stonks,market,trading,game">
+	<meta name="description" content="A virtual Stock Market based off of CodeForces">
+	<meta name="title" content="CF Stonks">
+	<meta name="Author" content="CodeTiger">
+
+	<link rel="stylesheet" href="./css/main.css">
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+	<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+		<a class="mb-0 h1 navbar-brand active" href="./">Stonks CF</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+			<li class="nav-item">
+				<a class="nav-link" href="./">Home</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="./profile.html">Profile</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="./explore.html">Explore</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="./transactions.html">Transactions</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="./leaderboard.html">Leaderboard</a>
+			</li>
+			<li class="nav-item">
+					<a class="nav-link" href="./chats.html">Chats</a>
+				</li>
+			<li class="nav-item active">
+				<a class="nav-link" href="./about.html">About</a>
+			</li>
+			</ul>
+			<div class="form-inline navbar-si">
+				<button class="btn btn-outline-light lrB navBtn" type="button" onclick="window.location.replace('register.html');">Register</button>
+				<button class="btn btn-outline-light lrB navBtn" type="button" onclick="window.location.replace('login.html');">Login</button>
+			</div>
+		</div>
+	</nav>
+
+	<div class="main-container" style="margin-left: 10%;width: 80%;margin-right: 10%;margin-bottom: 50px;">
+		<h4>Get Started!</h4>
+		<hr>
+		<p>To get started with the CF Stonks Market, follow the following instructions to register your account and start trading!</p>
+		<ol>
+			<li>Temporarily change your first name to "StonksCF-verify" in your CodeForces social tab at <a href="https://codeforces.com/settings/social">https://codeforces.com/settings/social</a></li>
+			<li>Register your CF Stonks account at our <a href="register.html">Register</a> tab</li>
+			<li>Login your account at our <a href="login.html">Login</a> tab</li>
+			<li>Good luck, Have fun, and start trading!</li>
+		</ol>
+		Here are some tips on the game mechanics to aid you in the process :D
+		<ul>
+			<li>You are initially given <b>200</b> stocks of your own CodeForces account with <b>$10,000</b> starting cash.</li>
+			<li>Each person's stock is based on their current CodeForces rating, and automatically updated after each rated contest. However, note that <b>promoting into a new division greatly increases the stock price (20% boost)</b>, so a Expert 1899 stock is much cheaper than a Candidate Master 1900 stock. The exact formula is <code>price = 1.2^rank * rating / 100</code> where rank is the number of ranks above <i>Newbie</i>.</li>
+			<li>You cannot buy a stock from an account that has taken less than <b>6</b> contests because it has not converged yet according to the CF rating system (unless it is your own stock).</li>
+			<li>Sell your stocks! Don't just hog all of your own stocks. The point of the game is to have fun :D, and there's no fun in only having your own stock.</li>
+		</ul>
+		<br>
+		<h4>About the Author</h4>
+		<hr style="margin-bottom: 40px;">
+		<img src="https://codetiger.me/image/article/image16.png" width="50%" alt="Avatar" style="border-radius: 50%;max-width: 300px;margin-bottom: 50px;">
+		<h4>CodeTiger</h4>
+		<hr>
+		<p>Hello. I am an active Competitive-Programmer who has been doing USACO since 7th grade. You can find more about me on my personal <a href="https://codetiger.me">website</a>. This project is greatly inspired by the USACO server nimbus bot, built by <b>NotDeGhost</b> and idea by <b><a>Caoash</a></b>. Don't take things here too seriously, this is really just a fun game to spice up the CodeForces experience. If you have any suggestions/want to contribute to this project too, open an issue/pull request on Github. I will try to get them to ASAP :D.</p><br>
+		<h4>Contact</h4>
+		<hr>
+		<strong>Email</strong>: <a href="mailto:codetiger927@gmail.com">codetiger927@gmail.com</a><br>
+		<strong>Discord</strong>: <a href="https://discord.com/users/406666674171936768">CodeTiger#1869</a><br>
+		<strong>Github</strong>: <a href="https://github.com/CodeTiger927">CodeTiger927</a><br>
+		<strong>CodeForces</strong>: <a href="https://codeforces.com/profile/codetiger927">codetiger927</a>
+	</div>
+
+</body>
+</html>

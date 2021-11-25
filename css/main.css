@@ -1,0 +1,98 @@
+.navBtn {
+    margin-right: 30px;
+    width: 100px;
+}
+
+.main-container {
+	margin-top: 2rem;
+}
+
+.stats-card {
+	margin-top: 20px;
+}
+
+.leaderboard tr {
+	line-height: 0.6;
+}
+
+.events {
+	margin-bottom: 50px;
+}
+
+.profile-card-header {
+	font-size: 0.725rem;
+	font-weight: 550;
+	line-height: 0.5rem;
+	letter-spacing: .1666666667em!important;
+	font-family: "Cabin-semi-bold",sans-serif!important;
+	text-transform: uppercase!important;
+}
+
+.profile-number {
+	margin-top: 0.1em;
+	font-size: 2rem!important;
+	line-height: 2.3rem;
+	letter-spacing: .0073529412em!important;
+}
+
+.buysell-btn {
+	font-size: 1rem;
+	font-weight: 550;
+	line-height: 1.25rem;
+	letter-spacing: .1666666667em!important;
+	font-family: "Cabin-semi-bold",sans-serif!important;
+	text-transform: uppercase!important;
+	margin-top: 1em;
+}
+
+.chats-avatar {
+	/* To correctly align image, regardless of content height: */
+    vertical-align: top;
+    display: inline-block;
+    /* To horizontally center images and caption */
+    text-align: center;
+    /* The width of the container also implies margin around the images. */
+    width: 120px;
+}
+
+.chats-avatar img {
+	max-width: 100px;
+	width: 100%;
+}
+
+.chats-username {
+	margin: auto;
+	font-size: 0.8rem;
+}
+
+.chats-date {
+	font-size: 0.8rem;
+	font-weight: 550;
+	color: gray;
+}
+
+.chats-content {
+	font-size: 0.95rem;
+}
+
+.chats-post {
+	margin-top: 10px;
+	margin-bottom: 30px;
+}
+
+.comment-btn {
+	margin-top: 20px;
+	width: 100px;
+}
+
+.comment-post {
+	margin-bottom: 20px;
+}
+.regLoginHeader {
+	background-color: #398AD7;
+	color: white;
+}
+
+.regLoginContainer {
+	padding-top: 20px;
+}
