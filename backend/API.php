@@ -218,7 +218,7 @@
 		}else{
 			// Buying stocks
 			$numOfContests = count(callAPI("https://codeforces.com/api/user.rating?handle=" . $stock) -> result);
-			if($numOfContests < 6) {
+			if($numOfContests < 6 && $stock != $username) {
 				$data["success"] = -6;
 				$data["message"] = "You cannot buy a stock whose user has taken less than 6 contests!";
 			}else if($qty > $available) {
