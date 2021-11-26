@@ -210,10 +210,15 @@
 				$data["message"] = "You are selling more stocks than you have!";
 			}else{
 				$money = $price * (-$qty);
-				$conn -> query("UPDATE users SET cash=cash + " . $money . " WHERE name='" . $username . "'");
-				$conn -> query("UPDATE users SET hotness=hotness - " . (-$qty) . ", available=available + " . (-$qty) . " WHERE name='" . $stock . "'");
-				$conn -> query("INSERT INTO trades (buyer,stock,price,qty) VALUES ('" . $username . "','" . $stock . "'," . $price . "," . $qty . ")");
-				$data["success"] = 1;
+				if(!$conn -> query("INSERT INTO trades (buyer,stock,price,qty) VALUES ('" . $username . "','" . $stock . "'," . $price . "," . $qty . ")")) {
+					// Unique primary key error
+					$data["success"] = -13;
+					$data["message"] = "Too many transactions are happening right now. Please try again later";
+				}else{
+					$conn -> query("UPDATE users SET cash=cash + " . $money . " WHERE name='" . $username . "'");
+					$conn -> query("UPDATE users SET hotness=hotness - " . (-$qty) . ", available=available + " . (-$qty) . " WHERE name='" . $stock . "'");
+					$data["success"] = 1;
+				}
 			}
 		}else{
 			// Buying stocks
@@ -231,10 +236,15 @@
 					$data["success"] = -2;
 					$data["message"] = "You do not have enough money!";
 				}else{
-					$conn -> query("INSERT INTO trades (buyer,stock,price,qty) VALUES ('" . $username . "','" . $stock . "'," . $price . "," . $qty . ")");
-					$conn -> query("UPDATE users SET cash=cash - " . $total . " WHERE name='" . $username . "'");
-					$conn -> query("UPDATE users SET hotness=hotness + " . $qty . ", available=available - " . $qty . " WHERE name='" . $stock . "'");
-					$data["success"] = 1;
+					if(!$conn -> query("INSERT INTO trades (buyer,stock,price,qty) VALUES ('" . $username . "','" . $stock . "'," . $price . "," . $qty . ")")) {
+							// Unique primary key error
+						$data["success"] = -13;
+						$data["message"] = "Too many transactions are happening right now. Please try again later";
+					}else{
+						$conn -> query("UPDATE users SET cash=cash - " . $total . " WHERE name='" . $username . "'");
+						$conn -> query("UPDATE users SET hotness=hotness + " . $qty . ", available=available - " . $qty . " WHERE name='" . $stock . "'");
+						$data["success"] = 1;
+					}
 				}
 			}
 		}

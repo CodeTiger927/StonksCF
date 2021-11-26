@@ -8,7 +8,7 @@ function ratingToRank($rating) {
 	if($rating < 2100) return 4;
 	if($rating < 2300) return 5;
 	if($rating < 2400) return 6;
-	if($rating < 2700) return 7;
+	if($rating < 2600) return 7;
 	if($rating < 3000) return 8;
 	return 9;
 }
