@@ -25,7 +25,7 @@
 	if($currentStatus && $close) {
 		$conn -> query("UPDATE maps SET content = 0 WHERE id = 'open'");
 		echo 'Successfully closed market!\n';
-	}else if(!$currentStatus && $open) {
+	}else if(!$currentStatus && $open && !$close) {
 		callAPI("https://codetiger.me/project/StonksCF/backend/API.php?type=11&adminPassword=" . $password);
 		$conn -> query("UPDATE maps SET content = 1 WHERE id = 'open'");
 		echo 'Market has been reopened!\n';
