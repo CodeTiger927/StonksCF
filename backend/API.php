@@ -218,7 +218,7 @@
 		}else{
 			// Buying stocks
 			$numOfContests = count(callAPI("https://codeforces.com/api/user.rating?handle=" . $stock) -> result);
-			if($numOfContests < 6 && $stock != $username) {
+			if($numOfContests < 6) {
 				$data["success"] = -6;
 				$data["message"] = "You cannot buy a stock whose user has taken less than 6 contests!";
 			}else if($qty > $available) {
@@ -246,7 +246,10 @@
 		$username = strtolower($_REQUEST["username"]);
 		$password = $_REQUEST["password"];
 		$content = $_REQUEST["content"];
-		if(strlen($content) > 255) {
+		if(strlen($content) == 0) {
+			$data["success"] = -12;
+			$data["message"] = "Your comment is empty.";
+		}else if(strlen($content) > 255) {
 			$data["success"] = -3;
 			$data["message"] = "Comments are at most 255 characters.";
 		}else{
