@@ -43,7 +43,7 @@ client.on("messageCreate",(msg) => {
 				msg.reply("You have already been verified as " + users[userID][0] + "!");
 				return;
 			}
-			if(msg.channel.type != 'dm') {
+			if(msg.channel.type != 'DM') {
 				msg.reply("In order to protect your passwords, please do not verify in public channels. Private message me instead!");
 				return;
 			}
@@ -90,11 +90,10 @@ client.on("messageCreate",(msg) => {
 			if(params.length == 2) {
 				username = params[1];
 			}else{
-				username = users[msg.author.id][0];
-				if(username == undefined) {
+				if(users[msg.author.id] == undefined) {
 					msg.reply("Please use the format\n```+profile [username]```");
-					return;
 				}
+				username = users[msg.author.id][0];
 			}
 			axios.get(APIURL,{"params":{"type":5,"username":username}})
 			.then((pro) => {
@@ -127,11 +126,11 @@ client.on("messageCreate",(msg) => {
 			if(params.length == 2) {
 				username = params[1];
 			}else{
-				username = users[msg.author.id][0];
-				if(username == undefined) {
+				if(users[msg.author.id] == undefined) {
 					msg.reply("Please use the format\n```+holdings [username]```");
 					return;
 				}
+				username = users[msg.author.id][0];
 			}
 			axios.get(APIURL,{"params":{"type":5,"username":username}})
 			.then((pro) => {
@@ -140,13 +139,14 @@ client.on("messageCreate",(msg) => {
 					for(const [user,row] of Object.entries(pro.data["holdings"])) {
 						if(row["qty"] != 0) results += "\n" + user.padEnd(25,' ') + ' $' + reformNum(row["currentPrice"]).padEnd(7,' ') + row["qty"];
 					}
-					const userInfo = new MessageEmbed()
-					.setColor("#0099FF")
-					.setTitle("Holdings Lookup")
-					.setURL("https://codetiger.me/project/StonksCF")
-					.setDescription("Looking up the holdings of " + nameToCode(username) + "!")
-					.addField("Holdings","```" + results + "```")
-					msg.reply({ embeds: [userInfo] });
+					// const userInfo = new MessageEmbed()
+					// .setColor("#0099FF")
+					// .setTitle("Holdings Lookup")
+					// .setURL("https://codetiger.me/project/StonksCF")
+					// .setDescription("Looking up the holdings of " + nameToCode(username) + "!")
+					// .addField("Holdings","```" + results + "```")
+					// msg.reply({ embeds: [userInfo] });
+					msg.reply("```" + results + "```");
 				}else{
 					msg.reply("Error code " + pro.data.success + ": " + pro.data.message);
 				}
@@ -162,11 +162,11 @@ client.on("messageCreate",(msg) => {
 			if(params.length == 2) {
 				username = params[1];
 			}else{
-				username = users[msg.author.id][0];
-				if(username == undefined) {
+				if(users[msg.author.id] == undefined) {
 					msg.reply("Please use the format\n```+owners [username]```");
 					return;
 				}
+				username = users[msg.author.id][0];
 			}
 			axios.get(APIURL,{"params":{"type":5,"username":username}})
 			.then((pro) => {
@@ -175,13 +175,14 @@ client.on("messageCreate",(msg) => {
 					for(const [user,row] of Object.entries(pro.data["owners"])) {
 						if(row["qty"] != 0) results += "\n" + user.padEnd(26,' ') + reformNum(row["qty"]).padEnd(5,' ') + reformNum(row["qty"] / 10) + "%";
 					}
-					const userInfo = new MessageEmbed()
-					.setColor("#0099FF")
-					.setTitle("Owners Lookup")
-					.setURL("https://codetiger.me/project/StonksCF")
-					.setDescription("Looking up the owners of " + nameToCode(username) + "!")
-					.addField("Holdings","```" + results + "```")
-					msg.reply({ embeds: [userInfo] });
+					// const userInfo = new MessageEmbed()
+					// .setColor("#0099FF")
+					// .setTitle("Owners Lookup")
+					// .setURL("https://codetiger.me/project/StonksCF")
+					// .setDescription("Looking up the owners of " + nameToCode(username) + "!")
+					// .addField("Holdings","```" + results + "```")
+					// msg.reply({ embeds: [userInfo] });
+					msg.reply("```" + results + "```");
 				}else{
 					msg.reply("Error code " + pro.data.success + ": " + pro.data.message);
 				}
@@ -256,6 +257,9 @@ client.on("messageCreate",(msg) => {
 					msg.reply("Error code " + pro.data.success + ": " + pro.data.message);
 				}
 			});
+		}else if(params[0] == "+unverify") {
+			delete users[msg.author.id];
+			msg.reply("You have been successfully unverified")
 		}else if(params[0] == "+about") {
 			msg.reply("This project is developped by CodeTiger, you can support him or give suggestions by going to the github page https://github.com/CodeTiger927/StonksCF.");
 		}else if(params[0] == "+help") {
@@ -269,6 +273,7 @@ client.on("messageCreate",(msg) => {
 			helpMessage += "   " + "leaderboard".padEnd(14,' ') + "get the current leaderobard\n";
 			helpMessage += "   " + "buy".padEnd(14,' ') + "buy stocks\n";
 			helpMessage += "   " + "sell".padEnd(14,' ') + "sell stocks\n";
+			helpMessage += "   " + "unverify".padEnd(14,' ') + "unlink your StonksCF account\n";
 			helpMessage += "\nNon-categorized:\n"
 			helpMessage += "   " + "help".padEnd(14,' ') + "shows this message\n";
 			msg.reply("```" + helpMessage + "```")
