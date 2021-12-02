@@ -180,7 +180,12 @@
 		echo json_encode($data);
 		exit("");
 	}else if($type == 8) {
-		if($conn -> query("SELECT content FROM maps WHERE id='open'") -> fetch_assoc()["content"] != "1") die("");
+		if($conn -> query("SELECT content FROM maps WHERE id='open'") -> fetch_assoc()["content"] != "1") {
+			$data["success"] = -14;
+			$data["message"] = "Market is closed right now!";
+			echo json_encode($data);
+			exit("");
+		}
 
 		// Make an transaction
 		$data = Array();
