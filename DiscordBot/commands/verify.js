@@ -29,6 +29,7 @@ module.exports = {
     name: 'verify',
     description: 'Link your StonksCF account',
     execute(client, msg, params) {
+        let userID = msg.author.id;
         // Verify and authenticate account
         if (users[userID] != undefined) {
             msg.reply("You have already been verified as " + users[userID][0] + "!");
