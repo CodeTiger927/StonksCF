@@ -1,5 +1,5 @@
 const fs = require("fs")
-const users = require("./users.json");
+const users = require("../users.json");
 
 function saveUsers() {
 	fs.writeFile("users.json",JSON.stringify(users),(err) => {

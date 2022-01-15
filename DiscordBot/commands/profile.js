@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const axios = require("axios");
-const users = require("./users.json");
+const users = require("../users.json");
 const APIURL = "https://codetiger.me/project/StonksCF/backend/API.php";
 
 module.exports = {
