@@ -11,3 +11,10 @@ function login() {
 		}
 	});
 }
+
+document.getElementById("password").addEventListener("keyup", function(event) {
+	if (event.key === 'Enter') {
+		event.preventDefault();
+		document.getElementById("loginButton").click();
+	}
+});
