@@ -1,12 +1,6 @@
 const fs = require("fs")
 const users = require("../users.json");
-
-function saveUsers() {
-	fs.writeFile("users.json",JSON.stringify(users),(err) => {
-		if(err) console.log(err);
-		console.log("Saving new user");
-	});
-}
+const util = require("../utilities.js")
 
 module.exports = {
     name: 'unverify',
@@ -14,6 +8,6 @@ module.exports = {
     execute(client, msg, params) {
         delete users[msg.author.id];
 		msg.reply("You have been successfully unverified")
-        saveUsers()
+        util.saveUsers()
     },
 };

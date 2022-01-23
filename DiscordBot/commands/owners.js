@@ -1,6 +1,7 @@
 const axios = require("axios");
 const users = require("../users.json");
 const APIURL = "https://codetiger.me/project/StonksCF/backend/API.php";
+const util = require("../utilities.js")
 
 module.exports = {
     name: 'owners',
@@ -30,7 +31,7 @@ module.exports = {
             if (pro.data.success == 1) {
                 results = "Name                      Qt.  %     \n------------------------- ---- ------";
                 for(const [user,row] of Object.entries(pro.data["owners"])) {
-                    if(row["qty"] != 0) results += "\n" + user.padEnd(26,' ') + reformNum(row["qty"]).padEnd(5,' ') + reformNum(row["qty"] / 10) + "%";
+                    if(row["qty"] != 0) results += "\n" + user.padEnd(26,' ') + util.reformNum(row["qty"]).padEnd(5,' ') + util.reformNum(row["qty"] / 10) + "%";
                 }
                 // const userInfo = new MessageEmbed()
                 // .setColor("#0099FF")

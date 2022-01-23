@@ -2,6 +2,7 @@ const { MessageEmbed } = require('discord.js');
 const axios = require("axios");
 const users = require("../users.json");
 const APIURL = "https://codetiger.me/project/StonksCF/backend/API.php";
+const util = require("../utilities.js")
 
 module.exports = {
     name: 'profile',
@@ -31,14 +32,14 @@ module.exports = {
                     .setColor("#0099FF")
                     .setTitle("Profile Lookup")
                     .setURL("https://codetiger.me/project/StonksCF")
-                    .setDescription("Looking up the profile of " + nameToCode(username) + "!")
+                    .setDescription("Looking up the profile of " + util.nameToCode(username) + "!")
                     .addFields(
-                        {name:'Stock price',value:"$" + reformNum(pro.data.price)},
+                        {name:'Stock price',value:"$" + util.reformNum(pro.data.price)},
                         {name:'QTY Available',value:pro.data.available + ""},
                         {name:'Handle',value:username},
-                        {name:'Networth',value:"$" + reformNum(pro.data.networth)},
+                        {name:'Networth',value:"$" + util.reformNum(pro.data.networth)},
                         {name:'Rank',value:pro.data.rank + " / " + pro.data.total},
-                        {name:'Cash',value:"$" + reformNum(pro.data.cash)}
+                        {name:'Cash',value:"$" + util.reformNum(pro.data.cash)}
                     );
                 msg.reply({ embeds: [userInfo] });
             } else {

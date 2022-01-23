@@ -4,27 +4,7 @@ const md5 = require("md5");
 const users = require("../users.json");
 const APIURL = "https://codetiger.me/project/StonksCF/backend/API.php";
 const fs = require('fs');
-
-function saveUsers() {
-	fs.writeFile("users.json",JSON.stringify(users),(err) => {
-		if(err) console.log(err);
-		console.log("Saving new user");
-	});
-}
-
-function numberWithCommas(x) {
-	var parts = x.toString().split(".");
-	parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	return parts.join(".");
-}
-
-function reformNum(number) {
-	return numberWithCommas(Math.round(number * 100) / 100);
-}
-
-function nameToCode(name) {
-	return "[" + name + "](https://codetiger.me/project/StonksCF/explore.html?username=" + name + ")"; 
-}
+const util = require("../utilities.js")
 
 module.exports = {
     name: 'verify',
@@ -61,7 +41,7 @@ module.exports = {
         }).then((res) => {
             if (res.data.success == 1) {
                 users[userID] = [username, password];
-                saveUsers();
+                util.saveUsers();
                 axios.get(APIURL, {
                     "params": {
                         "type": 5,
@@ -72,13 +52,13 @@ module.exports = {
                         .setColor("#0099FF")
                         .setTitle("Account Verification")
                         .setURL("https://codetiger.me/project/StonksCF")
-                        .setDescription("You have been successfully verified as " + nameToCode(username) + "!")
+                        .setDescription("You have been successfully verified as " + util.nameToCode(username) + "!")
                         .addFields(
                             {name:'User', value:msg.author.username},
                             {name:'Handle', value:username},
                             {name:'Networth', value:"$" + pro.data.networth},
                             {name:'Rank', value:pro.data.rank + " / " + pro.data.total},
-                            {name:'Cash', value:"$" + reformNum(pro.data.cash)}
+                            {name:'Cash', value:"$" + util.reformNum(pro.data.cash)}
                         );
 
                     msg.reply({ embeds: [userInfo] });

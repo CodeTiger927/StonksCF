@@ -1,7 +1,8 @@
 require('dotenv').config();
-const { Client, Intents } = require('discord.js');
+const { Client, Collection, Intents } = require('discord.js');
 const client = new Client({partials: ["CHANNEL"], intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.DIRECT_MESSAGES] });
 const fs = require('fs');
+client.commands = new Collection();
 
 client.on("ready",() => {
 	fs.readdir('./commands/', (_err, files) => {
@@ -18,7 +19,7 @@ client.on("ready",() => {
 client.on("messageCreate", (msg) => {
 	if (msg.content.charAt(0) == '+') {
 		let params = msg.content.split(" ");
-		let commandName = params[0].toLowerCase();
+		let commandName = params[0].substring(1).toLowerCase();
 		let cmd = client.commands.get(commandName);
 
 		if (cmd) {
