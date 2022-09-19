@@ -17,11 +17,12 @@
 			$latest = $contests[$i] -> startTimeSeconds;
 			$latestContestID = $contests[$i] -> id;
 		}
-		if(($contests[$i] -> startTimeSeconds) >= 1600000000 && (($contests[$i] -> phase == "BEFORE" && $contests[$i] -> startTimeSeconds - time() <= 1800) || $contests[$i] -> phase == "CODING" || $contests[$i] -> phase == "PENDING_SYSTEM_TEST" || $contests[$i] -> phase == "SYSTEM_TEST")) {
+		if(($contests[$i] -> startTimeSeconds) >= 1600000000 && (($contests[$i] -> phase == "BEFORE" && $contests[$i] -> startTimeSeconds - time() <= 1800) || $contests[$i] -> phase == "CODING" || $contests[$i] -> phase == "PENDING_SYSTEM_TEST" || $contests[$i] -> phase == "SYSTEM_TEST") && strpos($contests[$i] -> name,"Rated") !== false) {
 			$close = true;
 		}
 	}
 	$open = count(callAPI("http://codeforces.com/api/contest.ratingChanges?contestId=" . $latestContestID) -> result) > 0;
+
 	if($currentStatus && $close) {
 		$conn -> query("UPDATE maps SET content = 0 WHERE id = 'open'");
 		echo 'Successfully closed market!\n';
